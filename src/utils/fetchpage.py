@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding = utf-8
 # fetch raw content from website http://so.gushiwen.org/guwen/book_6.aspx
 
 import urllib
