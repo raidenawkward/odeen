@@ -49,9 +49,12 @@ class ED:
         KEY_GOOD_OR_ILL
     ]
 
-    def __init__(self):
-        self._dict = {}
-        self._initDict()
+    def __init__(self, dictionary=None):
+        if dictionary is not None:
+            self._dict = dictionary
+        else:
+            self._dict = {}
+            self._initDict()
 
     def _initDict(self):
         for key in ED.KEY_LIST:
@@ -78,16 +81,28 @@ class ED:
     def setNumber(self, number):
         self.getDict()[ED.KEY_NUMBER] = number
 
-    def getSymbol(self):
-        return self.getDict()[ED.KEY_SYMBOL]
-
-    def setSymbol(self, symbol):
-        self.getDict()[ED.KEY_SYMBOL] = symbol
+    def getSymbolMark(self):
+        symbol = self.getDict()[ED.KEY_SYMBOL]
+        mark = ''
+        mark = mark + ('- -' if symbol[2] == '1' else '---') + '\n'
+        mark = mark + ('- -' if symbol[1] == '1' else '---') + '\n'
+        mark = mark + ('- -' if symbol[0] == '1' else '---')
+        return mark
 
     def toString(self):
         return json.dumps(self.getDict(), ensure_ascii=False)
 
+    def loadFromString(self, string):
+        if string is None:
+            return
+
+        self._dict = json.loads(string)
+
+
+
 
 if __name__ == '__main__':
     ed = ED()
-    print(ed.toString())
+    dicstr = '{\"key_number\": 123, \"key_good_or_ill\": null, \"key_family_relationship\": null, \"key_symbol\": null, \"key_body\": null, \"key_yinyang\": null, \"key_organ\": null, \"key_fiveelement\": null, "key_animal": null, "key_id": null, "key_eightgate": null, "key_nature": null }'
+    ed.loadFromString(dicstr)
+    #print(ed.toString())
