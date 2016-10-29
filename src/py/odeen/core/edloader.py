@@ -211,6 +211,7 @@ class EDLoader:
 
 
 if __name__ == '__main__':
+    help(EDLoader)
     edList = EDLoader.generateEdList()
     EDLoader.saveEdToFile(edList)
     edList = EDLoader.loadEDListFromFile()
