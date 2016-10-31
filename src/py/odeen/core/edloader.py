@@ -174,11 +174,27 @@ class EDLoader:
 
         return edList
 
+    def saveEdStrToFile(edStrList, filePath='./ed', version='0.1'):
+        root = {}
+        root['version'] = version
+        root['codec'] = "utf-8"
+        root['edlist'] = edStrList
+
+        jsonStr = json.dumps(root, ensure_ascii=False)
+
+        file = open(filePath, 'wb')
+        file.write(jsonStr.encode())
+        file.close()
+
     def saveEdToFile(edList, filePath='./ed', version='0.1'):
         root = {}
         root['version'] = version
-        root["codec"] = "utf-8"
-        root['edlist'] = edList
+        root['codec'] = "utf-8"
+        edStrList = []
+        for ed in edList:
+            edStrList.append(ed.toString())
+
+        root['edlist'] = edStrList
 
         jsonStr = json.dumps(root, ensure_ascii=False)
 
@@ -213,7 +229,7 @@ class EDLoader:
 if __name__ == '__main__':
     help(EDLoader)
     edList = EDLoader.generateEdList()
-    EDLoader.saveEdToFile(edList)
+    EDLoader.saveEdStrToFile(edList)
     edList = EDLoader.loadEdListFromFile()
 
     for ed in edList:
