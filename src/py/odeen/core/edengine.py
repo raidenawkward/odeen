@@ -14,6 +14,8 @@ class EDEngine:
     ED and ED2 information center
     '''
 
+    ENGINE_VERSION = '0.1'
+
     DEF_ED_FILE_PATH = './data/ed'
     DEF_ED2_FILE_PATH = './data/ed2'
 
@@ -29,6 +31,8 @@ class EDEngine:
         if ed2FilePath is not None:
             self.loadEd2ListFromFile(ed2FilePath, silent=self.isSilent())
 
+    def getVersion(self):
+        return self.ENGINE_VERSION
 
     def isSilent(self):
         return self._silent

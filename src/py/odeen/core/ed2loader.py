@@ -132,7 +132,7 @@ class ED2Loader:
         ed2stringlist = jsonDict['ed2list']
 
         if silent is False:
-            print('load ed list from ' + filePath + ', version: ' + version + ', codec: ' + codec)
+            print('load ed2 list from ' + filePath + ', version: ' + version + ', codec: ' + codec)
 
         ed2list = []
 
