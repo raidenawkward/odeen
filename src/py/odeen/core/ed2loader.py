@@ -1,9 +1,9 @@
 # coding = utf-8
 
 import json
-from ed import *
-from ed2 import *
-from edengine import *
+from core.ed import *
+from core.ed2 import *
+from core.edengine import *
 
 
 class ED2Loader:

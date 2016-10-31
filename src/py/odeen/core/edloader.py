@@ -1,7 +1,6 @@
 # coding = utf-8
 
-import ed
-from ed import *
+from core.ed import *
 
 
 class EDLoader:

@@ -2,11 +2,11 @@
 
 import time
 
-from ed import *
-from ed2 import *
+from core.ed import *
+from core.ed2 import *
 
-from edloader import *
-from ed2loader import *
+from core.edloader import *
+from core.ed2loader import *
 
 
 class EDEngine:
