@@ -51,8 +51,14 @@ class ED2:
     def setId(self, id):
         self.getDict()[ED2.KEY_ID] = id
 
+    def getId(self):
+        return self.getDict()[ED2.KEY_ID]
+
     def setName(self, name):
         self.getDict()[ED2.KEY_NAME] = name
+
+    def getName(self):
+        return self.getDict()[ED2.KEY_NAME]
 
     def setEds(self, edstr=None, up=None, down=None):
         if edstr is None:
@@ -69,17 +75,29 @@ class ED2:
     def setSymbol(self, symbol):
         self.getDict()[ED2.KEY_SYMBOL] = symbol
 
+    def getSymbol(self):
+        return self.getDict()[ED2.KEY_SYMBOL]
+
     def setExplain(self, explain):
         self.getDict()[ED2.KEY_EXPLAIN] = explain
+
+    def getExplain(self):
+        return self.getDict()[ED2.KEY_EXPLAIN]
 
     def setExplainTranslation(self, trans):
         self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION] = trans
 
+    def getExplainTranslation(self):
+        self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION]
+
     def setComment(self, comment):
         self.getDict()[ED2.KEY_COMMENT] = comment
 
+    def getComment(self):
+        return self.getDict()[ED2.KEY_COMMENT]
+
     def getSymbolMark(self):
-        symbol = self.getDict()[ED.KEY_SYMBOL]
+        symbol = self.getDict()[ED2.KEY_SYMBOL]
         mark = ''
         mark = mark + ('- -' if symbol[5] == '1' else '---') + '\n'
         mark = mark + ('- -' if symbol[4] == '1' else '---') + '\n'

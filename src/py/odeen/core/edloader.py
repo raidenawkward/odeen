@@ -186,7 +186,7 @@ class EDLoader:
         file.write(jsonStr.encode())
         file.close()
 
-    def loadEDListFromFile(filePath='./ed', silent=False):
+    def loadEdListFromFile(filePath='./ed', silent=False):
         file = open(filePath, 'rb')
         content = file.read()
         jsonDict = json.loads(content.decode(), encoding='utf-8')
@@ -214,7 +214,7 @@ if __name__ == '__main__':
     help(EDLoader)
     edList = EDLoader.generateEdList()
     EDLoader.saveEdToFile(edList)
-    edList = EDLoader.loadEDListFromFile()
+    edList = EDLoader.loadEdListFromFile()
 
     for ed in edList:
         print(ed.getSymbolMark())
