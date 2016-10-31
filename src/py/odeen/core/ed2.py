@@ -26,10 +26,18 @@ class ED2:
         KEY_COMMENT
     ]
 
-    def __init__(self, dictionary=None):
+    def __init__(self, dictionary=None, id=None, name=None, eds=None, symbol=None, explain=None,
+    explainTranslation=None, comment=None):
         if dictionary is None:
             self._dict = {}
             self._initDict()
+            self.setId(id)
+            self.setName(name)
+            self.setEds(eds)
+            self.setSymbol(symbol)
+            self.setExplain(explain)
+            self.setExplainTranslation(explainTranslation)
+            self.setComment(comment)
         else:
             self._dict = dictionary
 
@@ -39,6 +47,36 @@ class ED2:
 
     def getDict(self):
         return self._dict
+
+    def setId(self, id):
+        self.getDict()[ED2.KEY_ID] = id
+
+    def setName(self, name):
+        self.getDict()[ED2.KEY_NAME] = name
+
+    def setEds(self, edstr=None, up=None, down=None):
+        if edstr is None:
+            eds = '' + str(up) + ',' + str(down)
+            self.getDict()[ED2.KEY_EDS] = eds
+        else:
+            self.getDict()[ED2.KEY_EDS] = edstr
+
+    def getEds(self):
+        edstr = self.getDict()[ED2.KEY_EDS]
+        l = edstr.split(',')
+        return l
+
+    def setSymbol(self, symbol):
+        self.getDict()[ED2.KEY_SYMBOL] = symbol
+
+    def setExplain(self, explain):
+        self.getDict()[ED2.KEY_EXPLAIN] = explain
+
+    def setExplainTranslation(self, trans):
+        self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION] = trans
+
+    def setComment(self, comment):
+        self.getDict()[ED2.KEY_COMMENT] = comment
 
     def getSymbolMark(self):
         symbol = self.getDict()[ED.KEY_SYMBOL]
