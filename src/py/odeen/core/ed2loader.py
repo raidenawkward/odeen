@@ -111,7 +111,7 @@ class ED2Loader:
         ed2JsonList = []
 
         for ed2 in ed2list:
-            jsonStr = ed2.toString()
+            jsonStr = ed2.toJson()
             ed2JsonList.append(jsonStr)
 
         root['ed2list'] = ed2JsonList
@@ -138,7 +138,7 @@ class ED2Loader:
 
         for ed2string in ed2stringlist:
             ed2 = ED2()
-            ed2.loadFromString(ed2string)
+            ed2.loadFromJson(ed2string)
             ed2list.append(ed2)
 
         return ed2list

@@ -2,8 +2,10 @@
 
 import json
 
+from core.dictobj import DictObject
 
-class ED2:
+
+class ED2(DictObject):
     '''
     definition for Zhouyi Diagrams
     '''
@@ -28,9 +30,9 @@ class ED2:
 
     def __init__(self, dictionary=None, id=None, name=None, eds=None, symbol=None, explain=None,
     explainTranslation=None, comment=None):
+        super().__init__(dictionary)
+
         if dictionary is None:
-            self._dict = {}
-            self._initDict()
             self.setId(id)
             self.setName(name)
             self.setEds(eds)
@@ -38,15 +40,9 @@ class ED2:
             self.setExplain(explain)
             self.setExplainTranslation(explainTranslation)
             self.setComment(comment)
-        else:
-            self._dict = dictionary
 
-    def _initDict(self):
-        for key in ED2.KEY_LIST:
-            self.getDict()[key] = None
-
-    def getDict(self):
-        return self._dict
+    def getDictKeyList(self):
+        return ED2.KEY_LIST
 
     def setId(self, id):
         self.getDict()[ED2.KEY_ID] = id
@@ -106,15 +102,6 @@ class ED2:
         mark = mark + ('- -' if symbol[1] == '1' else '---') + '\n'
         mark = mark + ('- -' if symbol[0] == '1' else '---')
         return mark
-
-    def toString(self):
-        return json.dumps(self.getDict(), ensure_ascii=False)
-
-    def loadFromString(self, string):
-        if string is None:
-            return
-
-        self._dict = json.loads(string)
 
 
 

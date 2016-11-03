@@ -3,8 +3,9 @@
 import os
 import json
 
+from core.dictobj import DictObject
 
-class ED:
+class ED(DictObject):
     '''
     definition for Eight Diagrams
     '''
@@ -50,18 +51,10 @@ class ED:
     ]
 
     def __init__(self, dictionary=None):
-        if dictionary is not None:
-            self._dict = dictionary
-        else:
-            self._dict = {}
-            self._initDict()
+        super().__init__(dictionary)
 
-    def _initDict(self):
-        for key in ED.KEY_LIST:
-            self.getDict()[key] = None
-
-    def getDict(self):
-        return self._dict
+    def getDictKeyList(self):
+        return ED.KEY_LIST
 
     def getId(self):
         return self.getDict()[ED.KEY_ID]
@@ -89,20 +82,11 @@ class ED:
         mark = mark + ('- -' if symbol[0] == '1' else '---')
         return mark
 
-    def toString(self):
-        return json.dumps(self.getDict(), ensure_ascii=False)
-
-    def loadFromString(self, string):
-        if string is None:
-            return
-
-        self._dict = json.loads(string)
-
 
 
 
 if __name__ == '__main__':
     ed = ED()
     dicstr = '{\"key_number\": 123, \"key_good_or_ill\": null, \"key_family_relationship\": null, \"key_symbol\": null, \"key_body\": null, \"key_yinyang\": null, \"key_organ\": null, \"key_fiveelement\": null, "key_animal": null, "key_id": null, "key_eightgate": null, "key_nature": null }'
-    ed.loadFromString(dicstr)
+    ed.loadFromJson(dicstr)
     #print(ed.toString())

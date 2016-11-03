@@ -29,7 +29,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'NW'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'KAI'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'JI'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # DUI
         ed = ED()
@@ -49,7 +49,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'W'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'JING|SUPRISE'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'XIONG'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # LI
         ed = ED()
@@ -69,7 +69,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'S'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'JING|VIEW'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'ZHONGPING'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # ZHEN
         ed = ED()
@@ -89,7 +89,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'E'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'SHANG'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'XIONG'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # XUN
         ed = ED()
@@ -109,7 +109,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'SE'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'DU'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'ZHONGPING'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # KAN
         ed = ED()
@@ -129,7 +129,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'N'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'XIU'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'JI'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # GEN
         ed = ED()
@@ -149,7 +149,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'NE'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'SHENG'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'JI'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         # KUN
         ed = ED()
@@ -169,7 +169,7 @@ class EDLoader:
         ed.getDict()[ED.KEY_DIRECTION_OF_EIGHT_DIAGRAM_2] = 'SW'
         ed.getDict()[ED.KEY_EIGHTGATE] = 'SI'
         ed.getDict()[ED.KEY_GOOD_OR_ILL] = 'XIONG'
-        edList.append(ed.toString())
+        edList.append(ed.toJson())
 
         return edList
 
@@ -191,7 +191,7 @@ class EDLoader:
         root['codec'] = "utf-8"
         edStrList = []
         for ed in edList:
-            edStrList.append(ed.toString())
+            edStrList.append(ed.toJson())
 
         root['edlist'] = edStrList
 
@@ -217,7 +217,7 @@ class EDLoader:
 
         for edstring in edstringlist:
             ed = ED()
-            ed.loadFromString(edstring)
+            ed.loadFromJson(edstring)
             edlist.append(ed)
 
         return edlist

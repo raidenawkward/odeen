@@ -9,7 +9,7 @@ from core.ed2 import *
 
 
 
-
 class SixLines(Predict):
     def __init__(self, engine):
-        super().__init__(engine)
+        super().__init__()
+        self._engine = engine

@@ -3,6 +3,7 @@
 
 from core.ed import *
 from core.ed2 import *
+from core.edengine import *
 from predict import *
 from predict.sixlines.sixlines import *
 
@@ -10,5 +11,5 @@ from predict.sixlines.sixlines import *
 
 
 if __name__ == '__main__':
-    ed = ED()
-    sixline = SixLines(None)
+    edengine = EDEngine()
+    sixline = SixLines(edengine)
