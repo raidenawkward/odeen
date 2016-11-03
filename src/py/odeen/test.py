@@ -24,9 +24,20 @@ def testEngine():
 def testSixLines():
     edengine = EDEngine()
     predict = SixLines(edengine)
+    predict.getSymbolList()[0] = 1
+    predict.getSymbolList()[1] = 2
+    predict.getSymbolList()[2] = 3
     print(predict.toJson())
 
-    
+    #predict.save()
+
+    #predict.load('Six Lines_1478156824.525063.txt')
+    #print(predict.toJson())
+
+    for i in range (0, 6):
+        predict.dice()
+        print(predict.toJson())
+
 
 if __name__ == '__main__':
     #testEngine()

@@ -26,7 +26,10 @@ class DictObject:
 
     def _onInitDict(self, theDict, keyList):
         for key in keyList:
-            theDict[key] = ''
+            theDict[key] = None
+
+    def setDict(self, d):
+        self._dict = d
 
     def toJson(self):
         return json.dumps(self.getDict(), ensure_ascii=False)
@@ -36,3 +39,23 @@ class DictObject:
             return
 
         self._dict = json.loads(jsonStr)
+
+    def save(self, filePath=None):
+        if filePath is None:
+            filePath = self._generateName()
+
+        jsonStr = self.toJson()
+        file = open(filePath, 'wb')
+        file.write(jsonStr.encode())
+        file.close()
+
+    def load(self, filePath):
+        if filePath is None:
+            return
+
+        file = open(filePath, 'rb')
+        content = file.read()
+        jsonDict = json.loads(content.decode(), encoding='utf-8')
+        file.close()
+
+        self.setDict(jsonDict)

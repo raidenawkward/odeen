@@ -1,6 +1,7 @@
 # coding = utf-8
 
 import time
+import json
 
 from core.dictobj import DictObject
 from core.edengine import *
@@ -31,7 +32,7 @@ class Predict(DictObject):
 
     def __init__(self):
         super().__init__()
-        self._createdTime = time.time()
+        self.setCreatedTime(time.time())
 
     def getDictKeyList(self):
         return Predict.KEY_LIST
@@ -42,3 +43,9 @@ class Predict(DictObject):
     def getCreatedTime(self):
         return self.getDict()[Predict.KEY_CREATED_TIME]
 
+    def _generateName(self):
+        name = '' + self.getDict()[Predict.KEY_NAME] + '_' + str(self.getCreatedTime()) + '.txt'
+        return name
+
+    def reset(self):
+        pass
