@@ -10,13 +10,13 @@ class ED2(DictObject):
     definition for Zhouyi Diagrams
     '''
 
-    KEY_ID = 'key_id'
-    KEY_NAME = 'key_name'
-    KEY_EDS = 'key_eds'
-    KEY_SYMBOL = 'key_symbol'
-    KEY_EXPLAIN = 'key_explain'
-    KEY_EXPLAIN_TRANSLATION = 'key_explain_translation'
-    KEY_COMMENT = 'key_comment'
+    KEY_ID = 'id'
+    KEY_NAME = 'name'
+    KEY_EDS = 'eds'
+    KEY_SYMBOL = 'symbol'
+    KEY_EXPLAIN = 'explain'
+    KEY_EXPLAIN_TRANSLATION = 'explain_translation'
+    KEY_COMMENT = 'comment'
 
     KEY_LIST = [
         KEY_ID,

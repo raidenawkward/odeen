@@ -13,15 +13,19 @@ class Predict(DictObject):
     single predict unit
     '''
 
-    KEY_ID = 'key_id'
-    KEY_NAME = 'key_name'
-    KEY_CREATED_TIME = 'key_created_time'
+    KEY_ID = 'id'
+    KEY_NAME = 'name'
+    KEY_CREATED_TIME = 'created_time'
+    KEY_TYPE = 'type'
+    KEY_CONCLUSION = 'conclusion'
 
 
     KEY_LIST = [
         KEY_ID,
         KEY_NAME,
-        KEY_CREATED_TIME
+        KEY_CREATED_TIME,
+        KEY_TYPE,
+        KEY_CONCLUSION
     ]
 
 
@@ -37,3 +41,4 @@ class Predict(DictObject):
 
     def getCreatedTime(self):
         return self.getDict()[Predict.KEY_CREATED_TIME]
+

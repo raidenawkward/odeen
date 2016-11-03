@@ -4,6 +4,8 @@
 from core.ed import *
 from core.ed2 import *
 from core.edengine import *
+from core.edloader import *
+from core.ed2loader import *
 from predict import *
 from predict.sixlines.sixlines import *
 
@@ -19,9 +21,13 @@ def testEngine():
         print(ed2.getName())
         print(ed2.getExplain())
 
+def testSixLines():
+    edengine = EDEngine()
+    predict = SixLines(edengine)
+    print(predict.toJson())
 
-
-
+    
 
 if __name__ == '__main__':
-    testEngine()
+    #testEngine()
+    testSixLines()

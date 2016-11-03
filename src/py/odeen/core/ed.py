@@ -14,22 +14,22 @@ class ED(DictObject):
     YANG = 0
 
     # keys those are used in self._dict
-    KEY_ID = 'key_id'
-    KEY_NAME = 'key_name'
-    KEY_NUMBER = 'key_number'
-    KEY_SYMBOL = 'key_symbol'
-    KEY_YINYANG = 'key_yinyang'
-    KEY_FIVEELEMENT = 'key_fiveelement'
-    KEY_NATURE = 'key_nature'
-    KEY_TEMPERAMENT = 'key_temperament'
-    KEY_FAMILY_RELATIONSHIP = 'key_family_relationship'
-    KEY_ANIMAL = 'key_animal'
-    KEY_BODY = 'key_body'
-    KEY_ORGAN = 'key_organ'
-    KEY_EIGHTGATE = 'key_eightgate'
-    KEY_DIRECTION_OF_EIGHT_DIAGRAM = 'key_direction_of_eight_diagram'
-    KEY_DIRECTION_OF_EIGHT_DIAGRAM_2 = 'key_direction_of_eight_diagram_2'
-    KEY_GOOD_OR_ILL = 'key_good_or_ill'
+    KEY_ID = 'id'
+    KEY_NAME = 'name'
+    KEY_NUMBER = 'number'
+    KEY_SYMBOL = 'symbol'
+    KEY_YINYANG = 'yinyang'
+    KEY_FIVEELEMENT = 'fiveelement'
+    KEY_NATURE = 'nature'
+    KEY_TEMPERAMENT = 'temperament'
+    KEY_FAMILY_RELATIONSHIP = 'family_relationship'
+    KEY_ANIMAL = 'animal'
+    KEY_BODY = 'body'
+    KEY_ORGAN = 'organ'
+    KEY_EIGHTGATE = 'eightgate'
+    KEY_DIRECTION_OF_EIGHT_DIAGRAM = 'direction_of_eight_diagram'
+    KEY_DIRECTION_OF_EIGHT_DIAGRAM_2 = 'direction_of_eight_diagram_2'
+    KEY_GOOD_OR_ILL = 'good_or_ill'
 
     KEY_LIST = [
         KEY_ID,
@@ -87,6 +87,6 @@ class ED(DictObject):
 
 if __name__ == '__main__':
     ed = ED()
-    dicstr = '{\"key_number\": 123, \"key_good_or_ill\": null, \"key_family_relationship\": null, \"key_symbol\": null, \"key_body\": null, \"key_yinyang\": null, \"key_organ\": null, \"key_fiveelement\": null, "key_animal": null, "key_id": null, "key_eightgate": null, "key_nature": null }'
+    dicstr = '{\"number\": 123, \"good_or_ill\": null, \"family_relationship\": null, \"symbol\": null, \"body\": null, \"yinyang\": null, \"organ\": null, \"fiveelement\": null, "animal": null, "id": null, "eightgate": null, "nature": null }'
     ed.loadFromJson(dicstr)
     #print(ed.toString())
