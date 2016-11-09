@@ -8,6 +8,8 @@ from core.edloader import *
 from core.ed2loader import *
 from predict import *
 from predict.sixlines.sixlines import *
+from predict.ui.console.launcher import *
+from predict.ui.console.progress import ProgressBar
 
 
 def testEngine():
@@ -38,7 +40,25 @@ def testSixLines():
         predict.dice()
         print(predict.toJson())
 
+def testSixLinesLaunch():
+    launcher = Launcher(silent=False)
+    launcher.launch()
+
+def testProgress():
+    import time
+
+    progressBar = ProgressBar()
+    for i in range(0, 99):
+        progressBar.progress(i)
+        time.sleep(0.5)
+
+
+
+
+
 
 if __name__ == '__main__':
     #testEngine()
-    testSixLines()
+    #testSixLines()
+    testSixLinesLaunch()
+    #testProgress()
