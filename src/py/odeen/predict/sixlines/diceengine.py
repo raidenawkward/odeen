@@ -57,5 +57,5 @@ class DiceEngine:
             diceResults.append(d.dice())
 
         res = self._getDiceResult(diceResults)
-        print('dice: ' + str(res))
-        return res
+        #print('dice: ' + str(res))
+        return (res, diceResults)

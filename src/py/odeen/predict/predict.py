@@ -19,6 +19,8 @@ class Predict(DictObject):
     KEY_CREATED_TIME = 'created_time'
     KEY_TYPE = 'type'
     KEY_CONCLUSION = 'conclusion'
+    KEY_ISSUE = 'issue'
+    KEY_PREDICTOR = 'predictor'
 
 
     KEY_LIST = [
@@ -26,7 +28,8 @@ class Predict(DictObject):
         KEY_NAME,
         KEY_CREATED_TIME,
         KEY_TYPE,
-        KEY_CONCLUSION
+        KEY_CONCLUSION,
+        KEY_ISSUE
     ]
 
 
@@ -46,6 +49,12 @@ class Predict(DictObject):
     def _generateName(self):
         name = '' + self.getDict()[Predict.KEY_NAME] + '_' + str(self.getCreatedTime()) + '.txt'
         return name
+
+    def setPredictor(self, predictor):
+        self.getDict()[Predict.KEY_PREDICTOR] = predictor
+
+    def setPredictIssue(self, issue):
+        self.getDict()[Predict.KEY_ISSUE] = issue
 
     def reset(self):
         pass

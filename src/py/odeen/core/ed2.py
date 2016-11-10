@@ -64,9 +64,15 @@ class ED2(DictObject):
             self.getDict()[ED2.KEY_EDS] = edstr
 
     def getEds(self):
+        """
+        UP,DOWN
+        """
         edstr = self.getDict()[ED2.KEY_EDS]
         l = edstr.split(',')
-        return l
+        n = []
+        for s in l:
+            n.append(int(s))
+        return n
 
     def setSymbol(self, symbol):
         self.getDict()[ED2.KEY_SYMBOL] = symbol
@@ -84,7 +90,7 @@ class ED2(DictObject):
         self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION] = trans
 
     def getExplainTranslation(self):
-        self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION]
+        return self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION]
 
     def setComment(self, comment):
         self.getDict()[ED2.KEY_COMMENT] = comment

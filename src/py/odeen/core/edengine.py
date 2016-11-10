@@ -45,10 +45,22 @@ class EDEngine:
     def getEdList(self):
         return self._edList
 
-    def findEd(self, index=-1):
+    def findEd(self, index=-1, symbolList=None):
         edList = self.getEdList()
         if index >= 0 and index < len(edList):
             return edList[index]
+
+        #print('symbolList: ' + str(symbolList))
+        if symbolList is not None:
+            length = len(symbolList)
+            number = 0
+            for i in range(0, length):
+                mod = symbolList[i] << length - i - 1
+                number = number + mod
+
+            for ed in self.getEdList():
+                if ed.getNumber() == number:
+                    return ed
 
         return None
 
@@ -67,7 +79,7 @@ class EDEngine:
     def getEd2List(self):
         return self._ed2List
 
-    def findEd2(self, index=-1, edIndexList=None, edList=None):
+    def findEd2(self, index=-1, edIndexList=None, edList=None, symbolList=None):
         ed2List = self.getEd2List()
         if index >= 0 and index < len(ed2List):
             return ed2List[index]
@@ -81,8 +93,22 @@ class EDEngine:
         if edList is not None:
             for ed2 in self.getEd2List():
                 eds = ed2.getEds()
-                if edList[0].getId() == eds[0] and edList[1].getId() == eds[1]:
+                if edList[0].getId() == eds[1] and edList[1].getId() == eds[0]:
                     return ed2
+
+        if symbolList is not None:
+            symbolListDown = []
+            symbolListUp = []
+            for i in range(0, int(len(symbolList) / 2)):
+                symbolListDown.append(symbolList[i])
+
+            for i in range(int(len(symbolList) / 2), len(symbolList)):
+                symbolListUp.append(symbolList[i])
+
+            edDown = self.findEd(symbolList=symbolListDown)
+            edUp = self.findEd(symbolList=symbolListUp)
+            edList = [edDown, edUp]
+            return self.findEd2(edList=edList)
 
         return None
 
