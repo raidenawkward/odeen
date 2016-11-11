@@ -18,6 +18,8 @@ class EDEngine:
 
     DEF_ED_FILE_PATH = './data/ed'
     DEF_ED2_FILE_PATH = './data/ed2'
+    DEF_ED_DISTRIBUTE_FOLDER_PATH = './data/eddistribute'
+    DEF_ED2_DISTRIBUTE_FOLDER_PATH = './data/ed2distribute'
 
 
     def __init__(self, edFilePath=DEF_ED_FILE_PATH, ed2FilePath=DEF_ED2_FILE_PATH, silent=False):
@@ -70,6 +72,15 @@ class EDEngine:
 
         edList = self.getEdList()
         EDLoader.saveEdToFile(edList, filePath, version)
+
+    def saveEdToDistribute(self, folder=DEF_ED_DISTRIBUTE_FOLDER_PATH):
+        import os
+
+        edList = self.getEdList()
+        for ed in edList:
+            path = os.path.join(folder, ed.getId())
+            ed.save(path)
+
 
     # methods for ed2
     def loadEd2ListFromFile(self, filePath=DEF_ED2_FILE_PATH, silent=False):
