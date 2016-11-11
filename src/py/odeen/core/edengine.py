@@ -47,7 +47,7 @@ class EDEngine:
     def getEdList(self):
         return self._edList
 
-    def findEd(self, index=-1, symbolList=None):
+    def findEd(self, index=-1, symbolList=None, name=None):
         edList = self.getEdList()
         if index >= 0 and index < len(edList):
             return edList[index]
@@ -62,6 +62,11 @@ class EDEngine:
 
             for ed in self.getEdList():
                 if ed.getNumber() == number:
+                    return ed
+
+        if name is not None:
+            for ed in edList:
+                if ed.getName() == name:
                     return ed
 
         return None
@@ -90,7 +95,7 @@ class EDEngine:
     def getEd2List(self):
         return self._ed2List
 
-    def findEd2(self, index=-1, edIndexList=None, edList=None, symbolList=None):
+    def findEd2(self, index=-1, edIndexList=None, edList=None, symbolList=None, name=None):
         ed2List = self.getEd2List()
         if index >= 0 and index < len(ed2List):
             return ed2List[index]
@@ -120,6 +125,11 @@ class EDEngine:
             edUp = self.findEd(symbolList=symbolListUp)
             edList = [edDown, edUp]
             return self.findEd2(edList=edList)
+
+        if name is not None:
+            for ed2 in self.getEd2List():
+                if ed2.getName() == name:
+                    return ed2
 
         return None
 
