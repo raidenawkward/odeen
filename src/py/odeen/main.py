@@ -11,12 +11,15 @@ from predict.ui.console.launcher import *
 
 
 
+VERSION = '1.1'
+
+
 def displayFullHelp(param=None):
     import os
     print('HELP INFORMATION\n')
 
     appname = 'odeen'
-    if param is not None or param[0] is not None:
+    if param is not None and param[0] is not None:
         appname = os.path.basename(param[0])
 
     print('' + appname + ' cmd [params]\n')
@@ -43,16 +46,29 @@ def displayHelpItem(item):
 
     print(str)
 
-def displayHelp(param):
-    if param is None or len(param) <= 2:
+def displayHelp(param=None, cmd=None):
+    cmdStr = None
+
+    if cmd is not None:
+        cmdStr = cmd
+    elif param is None or len(param) <= 2:
         displayFullHelp(param)
         return
+    else:
+        cmdStr = param[2]
 
-    cmdStr = param[2]
     for item in CMD_LIST:
         for c in item['cmd']:
             if c == cmdStr:
                 displayHelpItem(item)
+                return
+
+    displayFullHelp()
+
+def showVersion(param):
+    engine = EDEngine(silent=True)
+    print('program version: ' + VERSION)
+    print('engine version: ' + engine.getVersion())
 
 def sixLinesLaunch(param):
     launcher = Launcher(silent=False)
@@ -145,19 +161,221 @@ def showEd2(param):
     ed2 = edengine.findEd2(name=str(p1))
     showEdSingle(ed2, keys=attrs)
 
-def transformEdToDistribute():
-    engine = EDEngine()
-    engine.saveEd2ListToDistrubute()
+def editEd(param):
+    cmd = 'edited'
+    id = None
+    name = None
+    operation = None
+    key = None
+    value = None
 
+    paramLen = len(param)
+    if paramLen < 5:
+        displayHelp(cmd=cmd)
+        return
+
+    if paramLen > 2:
+        if param[2].isdigit():
+            id = int(param[2])
+        else:
+            name = str(param[2])
+
+    if paramLen > 3:
+        operation = str(param[3])
+
+    if paramLen > 4:
+        key = str(param[4])
+
+    if paramLen > 5:
+        value = str(param[5])
+
+    engine = EDEngine(silent=True)
+    ed = None
+    if id is not None:
+        ed = engine.findEd(index=id)
+    elif name is not None:
+        ed = engine.findEd(name=name)
+    else:
+        displayHelp(cmd=cmd)
+        return
+
+    if ed is None:
+        if id is not None:
+            print('ed was not found by id ' + str(id))
+        else:
+            print('ed was not found by name \'' + str(name) + '\'')
+
+    if operation.lower() == 'add' or operation.lower() == 'a':
+        if key is None or value is None:
+            displayHelp(cmd=cmd)
+            return
+
+        originalValue = ed.getDict().get(key)
+        if originalValue is not None:
+            print('ed ' + str(ed.getId()) + ' has already carried key \'' + key + '\'')
+            return
+
+        ed.getDict()[key] = value
+
+        engine.saveEd(ed)
+
+        print('ed ' + str(ed.getId()) + ' received new attribute:')
+        print('\t' + key + ' = ' + str(value))
+
+    elif operation.lower() == 'update' or operation.lower() == 'u':
+        if key is None or value is None:
+            displayHelp(cmd=cmd)
+            return
+
+        originalValue = None
+        try:
+            originalValue = ed.getDict()[key]
+            ed.getDict()[key] = value
+        except KeyError:
+            print('no attribute was found with key \'' + key + '\'')
+            return
+
+        engine.saveEd(ed)
+
+        print('ed ' + str(ed.getId()) + ' updated:')
+        print('before: ' + key + ' = ' + str(originalValue))
+        print('after: ' + key + ' = ' + str(value))
+
+    elif operation.lower() == 'del' or operation.lower() == 'd':
+        if key is None:
+            displayHelp(cmd=cmd)
+            return
+
+        originalValue = None
+        try:
+            originalValue = ed.getDict()[key]
+            del ed.getDict()[key]
+        except KeyError:
+            print('no attribute was found with key \'' + key + '\'')
+            return
+
+        engine.saveEd(ed)
+
+        print('ed ' + str(ed.getId()) + ' deleted attribute:')
+        print('\t' + key + ' = ' + str(originalValue))
+
+    else:
+        displayHelp(cmd=cmd)
+        return
+
+def editEd2(param):
+    cmd = 'edited2'
+    id = None
+    name = None
+    operation = None
+    key = None
+    value = None
+
+    paramLen = len(param)
+    if paramLen < 5:
+        displayHelp(cmd=cmd)
+        return
+
+    if paramLen > 2:
+        if param[2].isdigit():
+            id = int(param[2])
+        else:
+            name = str(param[2])
+
+    if paramLen > 3:
+        operation = str(param[3])
+
+    if paramLen > 4:
+        key = str(param[4])
+
+    if paramLen > 5:
+        value = str(param[5])
+
+    engine = EDEngine(silent=True)
+    ed2 = None
+    if id is not None:
+        ed2 = engine.findEd2(index=id)
+    elif name is not None:
+        ed2 = engine.findEd2(name=name)
+    else:
+        displayHelp(cmd=cmd)
+        return
+
+    if ed2 is None:
+        if id is not None:
+            print('ed2 was not found by id ' + str(id))
+        else:
+            print('ed2 was not found by name \'' + str(name) + '\'')
+
+    if operation.lower() == 'add' or operation.lower() == 'a':
+        if key is None or value is None:
+            displayHelp(cmd=cmd)
+            return
+
+        originalValue = ed2.getDict().get(key)
+        if originalValue is not None:
+            print('ed2 ' + str(ed2.getId()) + ' has already carried key \'' + key + '\'')
+            return
+
+        ed2.getDict()[key] = value
+
+        engine.saveEd2(ed2)
+
+        print('ed2 ' + str(ed2.getId()) + ' received new attribute:')
+        print('\t' + key + ' = ' + str(value))
+
+    elif operation.lower() == 'update' or operation.lower() == 'u':
+        if key is None or value is None:
+            displayHelp(cmd=cmd)
+            return
+
+        originalValue = None
+        try:
+            originalValue = ed2.getDict()[key]
+            ed2.getDict()[key] = value
+        except KeyError:
+            print('no attribute was found with key \'' + key + '\'')
+            return
+
+        engine.saveEd2(ed2)
+
+        print('ed2 ' + str(ed2.getId()) + ' updated:')
+        print('before: ' + key + ' = ' + str(originalValue))
+        print('after: ' + key + ' = ' + str(value))
+
+    elif operation.lower() == 'del' or operation.lower() == 'd':
+        if key is None:
+            displayHelp(cmd=cmd)
+            return
+
+        originalValue = None
+        try:
+            originalValue = ed2.getDict()[key]
+            del ed2.getDict()[key]
+        except KeyError:
+            print('no attribute was found with key \'' + key + '\'')
+            return
+
+        engine.saveEd2(ed2)
+
+        print('ed2 ' + str(ed2.getId()) + ' deleted attribute:')
+        print('\t' + key + ' = ' + str(originalValue))
+
+    else:
+        displayHelp(cmd=cmd)
+        return
 
 
 
 
 CMD_LIST = [
     {'cmd': ['help', 'h'], 'description': 'show this information', 'func': displayHelp, 'usage': 'help [cmd]'},
+    {'cmd': ['version', 'v'], 'description': 'show version', 'func': showVersion, 'usage': None},
     {'cmd': ['sixline', 'sixlines', 'sl'], 'description': 'start six lines predicting', 'func': sixLinesLaunch, 'usage':None},
-    {'cmd': ['showed', 'se'], 'description': 'show ed information', 'func': showEd, 'usage': 'show ed [keyword1, keyword2..] (keyword could be: id, name)'},
-    {'cmd': ['showed2', 'se2'], 'description': 'show ed2 information', 'func': showEd2, 'usage': 'show ed2 [keyword1, keyword2..] (keyword could be: id, name)'},
+    {'cmd': ['showed', 'se'], 'description': 'show ed information', 'func': showEd, 'usage': 'showed [keyword1, keyword2..] (keyword could be: id, name)'},
+    {'cmd': ['showed2', 'se2'], 'description': 'show ed2 information', 'func': showEd2, 'usage': 'showed2 [keyword1, keyword2..] (keyword could be: id, name)'},
+    {'cmd': ['edited', 'ee'], 'description': 'edit ed dictionary', 'func': editEd, 'usage': 'edited edid operation key [value]\n\t\t\toperation could be: add, del, update'},
+    {'cmd': ['edited2', 'ee2'], 'description': 'edit ed2 dictionary', 'func': editEd2, 'usage': 'edited2 ed2id operation key [value]\n\t\t\toperation could be: add, del, update'},
 ]
 
 def main(param):
@@ -187,4 +405,3 @@ def main(param):
 
 if __name__ == '__main__':
     main(sys.argv)
-    #transformEdToDistribute()

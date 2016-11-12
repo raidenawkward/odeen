@@ -71,6 +71,22 @@ class EDEngine:
 
         return None
 
+    def syncEd(self, ed, distributeFolder=DEF_ED_DISTRIBUTE_FOLDER_PATH):
+        import os
+        if ed is None or distributeFolder is None:
+            return
+
+        path = os.path.join(distributeFolder, str(ed.getId()))
+        ed.load(path)
+
+    def saveEd(self, ed, distributeFolder=DEF_ED_DISTRIBUTE_FOLDER_PATH):
+        import os
+        if ed is None or distributeFolder is None:
+            return
+
+        path = os.path.join(distributeFolder, str(ed.getId()))
+        ed.save(path)
+
     def saveEdToFile(self, filePath=None, version='0.1'):
         if filePath is None:
             filePath = 'ed.' + time.strftime('%Y%m%d.%H%M%S')
@@ -164,6 +180,22 @@ class EDEngine:
                     return ed2
 
         return None
+
+    def syncEd2(self, ed2, distributeFolder=DEF_ED2_DISTRIBUTE_FOLDER_PATH):
+        import os
+        if ed2 is None or distributeFolder is None:
+            return
+
+        path = os.path.join(distributeFolder, str(ed2.getId()))
+        ed2.load(path)
+
+    def saveEd2(self, ed2, distributeFolder=DEF_ED2_DISTRIBUTE_FOLDER_PATH):
+        import os
+        if ed2 is None or distributeFolder is None:
+            return
+
+        path = os.path.join(distributeFolder, str(ed2.getId()))
+        ed2.save(path)
 
     def saveEd2ToFile(self, filePath=None, version = '0.1'):
         if filePath is None:
