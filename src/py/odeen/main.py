@@ -145,6 +145,10 @@ def showEd2(param):
     ed2 = edengine.findEd2(name=str(p1))
     showEdSingle(ed2, keys=attrs)
 
+def transformEdToDistribute():
+    engine = EDEngine()
+    engine.saveEd2ListToDistrubute()
+
 
 
 
@@ -152,8 +156,8 @@ def showEd2(param):
 CMD_LIST = [
     {'cmd': ['help', 'h'], 'description': 'show this information', 'func': displayHelp, 'usage': 'help [cmd]'},
     {'cmd': ['sixline', 'sixlines', 'sl'], 'description': 'start six lines predicting', 'func': sixLinesLaunch, 'usage':None},
-    {'cmd': ['showed', 'se'], 'description': 'show ed information', 'func': showEd, 'usage': 'show ed [keyword] (keyword could be: id, name)'},
-    {'cmd': ['showed2', 'se2'], 'description': 'show ed2 information', 'func': showEd2, 'usage': 'show ed2 [keyword] (keyword could be: id, name)'},
+    {'cmd': ['showed', 'se'], 'description': 'show ed information', 'func': showEd, 'usage': 'show ed [keyword1, keyword2..] (keyword could be: id, name)'},
+    {'cmd': ['showed2', 'se2'], 'description': 'show ed2 information', 'func': showEd2, 'usage': 'show ed2 [keyword1, keyword2..] (keyword could be: id, name)'},
 ]
 
 def main(param):
@@ -183,3 +187,4 @@ def main(param):
 
 if __name__ == '__main__':
     main(sys.argv)
+    #transformEdToDistribute()
