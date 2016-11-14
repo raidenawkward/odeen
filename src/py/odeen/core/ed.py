@@ -18,6 +18,7 @@ class ED(DictObject):
     KEY_NAME = 'name'
     KEY_NUMBER = 'number'
     KEY_SYMBOL = 'symbol'
+    KEY_SYMBOL2 = 'symbol2'
     KEY_YINYANG = 'yinyang'
     KEY_FIVEELEMENT = 'fiveelement'
     KEY_NATURE = 'nature'
@@ -36,6 +37,7 @@ class ED(DictObject):
         KEY_NAME,
         KEY_NUMBER,
         KEY_SYMBOL,
+        KEY_SYMBOL2,
         KEY_YINYANG,
         KEY_FIVEELEMENT,
         KEY_NATURE,

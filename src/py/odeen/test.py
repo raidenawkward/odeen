@@ -10,6 +10,8 @@ from predict import *
 from predict.sixlines.sixlines import *
 from predict.ui.console.launcher import *
 from predict.ui.console.progress import ProgressBar
+from utils.updatemethods import *
+from core.edupdatehelper import EdUpdateHelper
 
 
 def testEngine():
@@ -52,7 +54,12 @@ def testProgress():
         progressBar.progress(i)
         time.sleep(0.5)
 
-
+def updateSymbol2():
+    engine = EDEngine()
+    helper = EdUpdateHelper(engine)
+    helper.updateEd(addEdSymbol2)
+    helper.updateEd2(addEd2Symbol2)
+    helper.save()
 
 
 
@@ -60,5 +67,6 @@ def testProgress():
 if __name__ == '__main__':
     #testEngine()
     #testSixLines()
-    testSixLinesLaunch()
+    #testSixLinesLaunch()
     #testProgress()
+    updateSymbol2()

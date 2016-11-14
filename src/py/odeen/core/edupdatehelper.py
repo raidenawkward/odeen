@@ -1,8 +1,8 @@
 # coding = utf-8
 
-from edengine import *
-from ed import *
-from ed2 import *
+from core.edengine import *
+from core.ed import *
+from core.ed2 import *
 
 
 
@@ -14,10 +14,14 @@ class EdUpdateHelper:
     def __init__(self, engine):
         self._engine = engine
 
+    def getEdEngine(self):
+        return self._engine
+
     def updateEd(self, onEdChanged=None):
         """
         onEdChanged(oldEd, engine), returns new ed
         """
+        engine = self.getEdEngine()
         edList = engine.getEdList()
         for i in range(0, len(edList)):
             oldEd = edList[i]
@@ -28,11 +32,25 @@ class EdUpdateHelper:
         """
         onEd2Changed(oldEd2, engine), returns new ed2
         """
+        engine = self.getEdEngine()
         ed2List = engine.getEd2List()
         for i in range(0, len(ed2List)):
             oldEd2 = ed2List[i]
             newEd2 = onEd2Changed(oldEd2, engine)
             ed2List[i] = newEd2
+
+    def save(self, edonly=False, ed2only=False):
+        engine = self.getEdEngine()
+        if edonly is True:
+            engine.saveEdToDistribute()
+            return
+        elif ed2only is True:
+            engine.saveEd2ListToDistrubute()
+        else:
+            engine.saveEdToDistribute()
+            engine.saveEd2ListToDistrubute()
+
+
 
 
 ED_UPDATE_LIST = [
