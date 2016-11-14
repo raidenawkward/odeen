@@ -36,6 +36,30 @@ def addEd2Symbol2(oldEd2, engine):
 
     return oldEd2
 
+def updateEdGoodOrIll(oldEd, engine):
+    old = oldEd.getDict()[ED.KEY_GOOD_OR_ILL]
+    new = ''
+    if old.lower() == 'xiong':
+        new = 'ill'
+    elif old.lower() == 'ji':
+        new = 'good'
+    else:
+        new = 'general'
+
+    oldEd.getDict()[ED.KEY_GOOD_OR_ILL] = new
+
+    return oldEd
+
+def addEdNumber2(oldEd, engine):
+    number = oldEd.getDict()[ED.KEY_NUMBER]
+    number2 = 7 - number
+    oldEd.getDict()[ED.KEY_NUMBER2] = number2
+
+    return oldEd
+
+
+
+
 
 if __name__ == '__main__':
     engine = EDEngine()

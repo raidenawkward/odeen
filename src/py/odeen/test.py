@@ -61,6 +61,19 @@ def updateSymbol2():
     helper.updateEd2(addEd2Symbol2)
     helper.save()
 
+def _updateEdGoodOrIll():
+    engine = EDEngine()
+    helper = EdUpdateHelper(engine)
+    helper.updateEd(updateEdGoodOrIll)
+    helper.save()
+
+def _addEdNumber2():
+    engine = EDEngine()
+    helper = EdUpdateHelper(engine)
+    helper.updateEd(addEdNumber2)
+    helper.save()
+
+
 
 
 
@@ -69,4 +82,6 @@ if __name__ == '__main__':
     #testSixLines()
     #testSixLinesLaunch()
     #testProgress()
-    updateSymbol2()
+    #updateSymbol2()
+    #_updateEdGoodOrIll()
+    _addEdNumber2()
