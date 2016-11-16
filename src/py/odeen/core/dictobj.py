@@ -17,6 +17,17 @@ class DictObject:
     def getDict(self):
         return self._dict
 
+    def getDictValue(self, key, default=None):
+        d = self.getDict()
+        value = d.get(key)
+        if value is not None:
+            return value
+        else:
+            return default
+
+    def setDictValue(self, key, value):
+        self.getDict()[key] = value
+
     def getDictKeyList(self):
         raise NotImplementedError
 

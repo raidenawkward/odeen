@@ -18,6 +18,20 @@ class ED2(DictObject):
     KEY_EXPLAIN = 'explain'
     KEY_EXPLAIN_TRANSLATION = 'explain_translation'
     KEY_COMMENT = 'comment'
+    KEY_SYMBOL_LIST = 'single_symbol_list'
+    KEY_ED2_EXPLAIN_LIST = 'ed2_explain_list'
+
+
+    # sub items those will not exist in KEY_LIST
+    KEY_ED2_SYMBOL_ORIGIN = 'ed2_symbol_origin'
+    KEY_ED2_SYMBOL_TRANSLATE = 'ed2_symbol_trans'
+    KEY_ED2_SYMBOL_COMMENT = 'ed2_symbol_comment'
+    KEY_ED2_SYMBOL_ANALYSE = 'ed2_symbol_analyse'
+
+    KEY_ED2_EXPLAIN_ORIGIN = 'ed2_explain_origin'
+    KEY_ED2_EXPLAIN_TRANSLATE = 'ed2_explain_trans'
+    KEY_ED2_EXPLAIN_COMMENT = 'ed2_explain_comment'
+
 
     KEY_LIST = [
         KEY_ID,
@@ -27,7 +41,9 @@ class ED2(DictObject):
         KEY_SYMBOL2,
         KEY_EXPLAIN,
         KEY_EXPLAIN_TRANSLATION,
-        KEY_COMMENT
+        KEY_COMMENT,
+        KEY_SYMBOL_LIST,
+        KEY_ED2_EXPLAIN_LIST
     ]
 
     def __init__(self, dictionary=None, id=None, name=None, eds=None, symbol=None, explain=None,
