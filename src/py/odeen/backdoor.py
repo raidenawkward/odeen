@@ -142,4 +142,5 @@ if __name__ == '__main__':
     #updateSymbol2()
     #_updateEdGoodOrIll()
     #_addEdNumber2()
-    addEd2SingleSymbolList()
+    #addEd2SingleSymbolList()
+    print(str(ED.__dict__))

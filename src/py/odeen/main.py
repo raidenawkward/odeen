@@ -369,6 +369,17 @@ def backupData(param):
     engine = EDEngine()
     engine.backupData()
 
+def listEdIds(param):
+    keydict = ED.__dict__
+    for key in keydict.keys():
+        if key.startswith('KEY_') and key != 'KEY_LIST':
+            print('ED.' + key + ' = \'' + str(keydict[key]) + '\'')
+
+def listEd2Ids(param):
+    keydict = ED2.__dict__
+    for key in keydict.keys():
+        if key.startswith('KEY_') and key != 'KEY_LIST':
+            print('ED2.' + key + ' = \'' + str(keydict[key]) + '\'')
 
 
 
@@ -382,6 +393,8 @@ CMD_LIST = [
     {'cmd': ['showed2', 'se2'], 'description': 'show ed2 information', 'func': showEd2, 'usage': 'showed2 [keyword1, keyword2..] (keyword could be: id, name)'},
     {'cmd': ['edited', 'ee'], 'description': 'edit ed dictionary', 'func': editEd, 'usage': 'edited edid operation key [value]\n\t\t\toperation could be: add, del, update'},
     {'cmd': ['edited2', 'ee2'], 'description': 'edit ed2 dictionary', 'func': editEd2, 'usage': 'edited2 ed2id operation key [value]\n\t\t\toperation could be: add, del, update'},
+    {'cmd': ['edid', 'eid', 'ei'], 'description': 'list supported ids for ed', 'func': listEdIds, 'usage': None},
+    {'cmd': ['ed2id', 'e2id', 'e2i'], 'description': 'list supported ids for ed2', 'func': listEd2Ids, 'usage': None},
 ]
 
 def main(param):
