@@ -11,7 +11,7 @@ from predict.ui.console.launcher import *
 
 
 
-VERSION = '1.1'
+VERSION = '1.2'
 
 
 def displayFullHelp(param=None):
@@ -365,12 +365,18 @@ def editEd2(param):
         displayHelp(cmd=cmd)
         return
 
+def backupData(param):
+    engine = EDEngine()
+    engine.backupData()
+
+
 
 
 
 CMD_LIST = [
     {'cmd': ['help', 'h'], 'description': 'show this information', 'func': displayHelp, 'usage': 'help [cmd]'},
     {'cmd': ['version', 'v'], 'description': 'show version', 'func': showVersion, 'usage': None},
+    {'cmd': ['backup', 'bd', 'back', 'bac', 'bk'], 'description': 'backup data in distribute folder', 'func': backupData, 'usage': 'backupdata [target]'},
     {'cmd': ['sixline', 'sixlines', 'sl'], 'description': 'start six lines predicting', 'func': sixLinesLaunch, 'usage':None},
     {'cmd': ['showed', 'se'], 'description': 'show ed information', 'func': showEd, 'usage': 'showed [keyword1, keyword2..] (keyword could be: id, name)'},
     {'cmd': ['showed2', 'se2'], 'description': 'show ed2 information', 'func': showEd2, 'usage': 'showed2 [keyword1, keyword2..] (keyword could be: id, name)'},

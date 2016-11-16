@@ -14,18 +14,23 @@ class EDEngine:
     ED and ED2 information center
     '''
 
-    ENGINE_VERSION = '0.2'
+    ENGINE_VERSION = '0.4'
 
-    DEF_ED_FILE_PATH = './data/ed'
-    DEF_ED2_FILE_PATH = './data/ed2'
-    DEF_ED_DISTRIBUTE_FOLDER_PATH = './data/eddistribute'
-    DEF_ED2_DISTRIBUTE_FOLDER_PATH = './data/ed2distribute'
+    DEF_DATA_PATH = './data'
+    DEF_BACKUP_PATH = './backup'
+    DEF_ED_FILE_PATH = DEF_DATA_PATH + '/ed'
+    DEF_ED2_FILE_PATH = DEF_DATA_PATH + '/ed2'
+    DEF_ED_DISTRIBUTE_FOLDER_PATH = DEF_DATA_PATH + '/eddistribute'
+    DEF_ED2_DISTRIBUTE_FOLDER_PATH = DEF_DATA_PATH + '/ed2distribute'
+
 
 
     def __init__(self, edDistribute=DEF_ED_DISTRIBUTE_FOLDER_PATH, ed2Distribute=DEF_ED2_DISTRIBUTE_FOLDER_PATH, silent=False):
         self._edList = []
         self._ed2List = []
         self._silent = silent
+        self._edDestributePath = edDistribute
+        self._ed2DestributePath = ed2Distribute
 
         if edDistribute is not None:
             self.loadEdFromDistribute(edDistribute)
@@ -107,6 +112,8 @@ class EDEngine:
     def loadEdFromDistribute(self, folder=DEF_ED2_DISTRIBUTE_FOLDER_PATH):
         import os
 
+        self._edDestributePath = folder
+
         edList = self.getEdList()
         edList.clear()
 
@@ -127,6 +134,8 @@ class EDEngine:
 
     def loadEd2ListFromDistribute(self, distributeFolder=DEF_ED2_DISTRIBUTE_FOLDER_PATH):
         import os
+
+        self._ed2DestributePath = distributeFolder
 
         ed2List = self.getEd2List()
         ed2List.clear()
@@ -213,6 +222,37 @@ class EDEngine:
             ed2.save(path)
             if self.isSilent() is False:
                 print('save ed2 ' + str(ed2.getId()) + ' to ' + path)
+
+    def backupData(self, src=DEF_DATA_PATH, dst=None):
+        import zipfile
+        import os
+        import time
+
+        if dst is None:
+            dst = EDEngine.DEF_BACKUP_PATH
+            dst = dst + '/data.' + str(time.time()) + '.bak.zip'
+
+        dstDir = os.path.dirname(dst)
+        os.makedirs(dstDir, exist_ok=True)
+
+        if self.isSilent() is False:
+            print('creating backup file ' + dst)
+
+        z = zipfile.ZipFile(dst, 'w', zipfile.zlib.DEFLATED)
+
+        filelist = []
+        if os.path.isfile(src):
+            filelist.append(src)
+            z.write(src)
+        else :
+            for root, dirs, files in os.walk(src):
+                for name in files:
+                    filelist.append(os.path.join(root, name))
+                    if self.isSilent() is False:
+                        print('writting zip file ' + os.path.join(root, name))
+                    z.write(os.path.join(root, name))
+
+        z.close()
 
 
 
