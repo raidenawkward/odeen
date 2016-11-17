@@ -127,6 +127,53 @@ class ED2(DictObject):
         mark = mark + ('- -' if symbol[0] == '1' else '---')
         return mark
 
+    def toFormattedString(self, keys=None, showSymbolMark=True):
+        string = ''
+        finishedKeys = []
+
+        if keys is None or keys.count(ED2.KEY_NAME) > 0:
+            string = string + '[' + self.getName() + ']\n'
+            finishedKeys.append(ED2.KEY_NAME)
+
+        if keys is None or keys.count(ED2.KEY_ID) > 0:
+            string = string + 'id: ' + str(self.getId()) + '\n'
+            finishedKeys.append(ED2.KEY_ID)
+
+        if showSymbolMark is True:
+            string = string + self.getSymbolMark() + '\n'
+
+        if keys is None or keys.count(ED2.KEY_SYMBOL) > 0:
+            string = string + 'symbol: ' + self.getSymbol() + '\n'
+            finishedKeys.append(ED2.KEY_SYMBOL)
+
+        if keys is None or keys.count(ED2.KEY_EDS) > 0:
+            eds = self.getDict()[ED2.KEY_EDS]
+            string = string + 'eds: ' + eds + ' (down, up)\n'
+            finishedKeys.append(ED2.KEY_EDS)
+
+        if keys is None or keys.count(ED2.KEY_ED2_EXPLAIN_LIST) > 0:
+            explainList = self.getDict()[ED2.KEY_ED2_EXPLAIN_LIST]
+            if explainList is not None:
+                string = string + 'explain list:\n\n'
+
+                for explainDict in explainList:
+                    string = string + 'explain ' + str(explainList.index(explainDict)) + ':\n'
+                    for key in explainDict.keys():
+                        string = string + '' + key + ': ' + str(explainDict.get(key)) + '\n'
+
+            finishedKeys.append(ED2.KEY_ED2_EXPLAIN_LIST)
+
+        if keys is None or keys.count(ED2.KEY_SYMBOL_LIST) > 0:
+            symbolList = self.getDict().get(ED2.KEY_SYMBOL_LIST)
+            if symbolList is not None:
+                string = string + '\nsymbol list:\n\n'
+
+                for symbolDict in symbolList:
+                    string = string + '' + str(symbolList.index(symbolDict)) + ':\n'
+                    for key in symbolDict.keys():
+                        string = string + '' + key + ': ' + str(symbolDict.get(key)) + '\n'
+
+        return string
 
 
 

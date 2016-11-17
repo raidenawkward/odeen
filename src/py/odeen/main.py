@@ -125,17 +125,12 @@ def showEd2Single(ed2, showDict=False, key=None, keys=None):
     string = ''
     string = string + '[' + ed2.getName() + ']\n'
     if key is not None:
-        ed2Dict = ed2.getDict()
-        string = string + '' + key + ':' + str(ed2Dict[key]) + '\n'
+        keylist = [key]
+        string = ed2.toFormattedString(keys=keylist)
     elif keys is not None and len(keys) > 0:
-        ed2Dict = ed2.getDict()
-        for k in keys:
-            string = string + '' + k + ':' + str(ed2Dict[k]) + '\n'
+        string = ed2.toFormattedString(keys=keys)
     else:
-        ed2Dict = ed2.getDict()
-        keys = ed2Dict.keys()
-        for k in keys:
-            string = string + '' + k + ':' + str(ed2Dict[k]) + '\n'
+        string = ed2.toFormattedString()
 
     print(string)
 
@@ -155,11 +150,11 @@ def showEd2(param):
     p1 = str(param[2])
     if p1.isdigit():
         ed2 = edengine.findEd2(index=int(p1))
-        showEdSingle(ed2, keys=attrs)
+        showEd2Single(ed2, keys=attrs)
         return
 
     ed2 = edengine.findEd2(name=str(p1))
-    showEdSingle(ed2, keys=attrs)
+    showEd2Single(ed2, keys=attrs)
 
 def editEd(param):
     cmd = 'edited'
