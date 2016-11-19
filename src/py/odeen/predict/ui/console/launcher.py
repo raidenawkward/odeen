@@ -120,11 +120,7 @@ class Launcher:
         # name
         string = string + str(ed2.getName()) + '\n'
         # explain
-        string = string + str(ed2.getExplain()) + '\n'
-        # explain translation
-        string = string + str(ed2.getExplainTranslation()) + '\n'
-        # comment
-        string = string + str(ed2.getComment()) + '\n'
+        string = string + str(ed2.toFormattedString()) + '\n'
 
         return string
 

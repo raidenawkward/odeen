@@ -57,6 +57,12 @@ def addEdNumber2(oldEd, engine):
 
     return oldEd
 
+def removeEd2UnusedFieleds(oldEd2, engine):
+    del oldEd2.getDict()[ED2.KEY_EXPLAIN]
+    del oldEd2.getDict()[ED2.KEY_EXPLAIN_TRANSLATION]
+    del oldEd2.getDict()[ED2.KEY_COMMENT]
+
+    return oldEd2
 
 
 

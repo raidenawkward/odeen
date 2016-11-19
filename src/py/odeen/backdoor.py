@@ -150,6 +150,15 @@ def modifyEd2():
 
             engine.saveEd2(ed2)
 
+def removeEd2SingleExplains():
+    engine = EDEngine()
+    helper = EdUpdateHelper(engine)
+    helper.updateEd2(removeEd2UnusedFieleds)
+    helper.save()
+
+
+
+
 
 if __name__ == '__main__':
     #testEngine()
@@ -162,3 +171,4 @@ if __name__ == '__main__':
     #addEd2SingleSymbolList()
     #print(str(ED.__dict__))
     #modifyEd2()
+    removeEd2SingleExplains()

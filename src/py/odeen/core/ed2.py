@@ -15,9 +15,6 @@ class ED2(DictObject):
     KEY_EDS = 'eds'
     KEY_SYMBOL = 'symbol'
     KEY_SYMBOL2 = 'symbol2'
-    KEY_EXPLAIN = 'explain'
-    KEY_EXPLAIN_TRANSLATION = 'explain_translation'
-    KEY_COMMENT = 'comment'
     KEY_SYMBOL_LIST = 'single_symbol_list'
     KEY_ED2_EXPLAIN_LIST = 'ed2_explain_list'
 
@@ -39,9 +36,6 @@ class ED2(DictObject):
         KEY_EDS,
         KEY_SYMBOL,
         KEY_SYMBOL2,
-        KEY_EXPLAIN,
-        KEY_EXPLAIN_TRANSLATION,
-        KEY_COMMENT,
         KEY_SYMBOL_LIST,
         KEY_ED2_EXPLAIN_LIST
     ]
@@ -55,9 +49,6 @@ class ED2(DictObject):
             self.setName(name)
             self.setEds(eds)
             self.setSymbol(symbol)
-            self.setExplain(explain)
-            self.setExplainTranslation(explainTranslation)
-            self.setComment(comment)
 
     def getDictKeyList(self):
         return ED2.KEY_LIST
@@ -98,24 +89,6 @@ class ED2(DictObject):
     def getSymbol(self):
         return self.getDict()[ED2.KEY_SYMBOL]
 
-    def setExplain(self, explain):
-        self.getDict()[ED2.KEY_EXPLAIN] = explain
-
-    def getExplain(self):
-        return self.getDict()[ED2.KEY_EXPLAIN]
-
-    def setExplainTranslation(self, trans):
-        self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION] = trans
-
-    def getExplainTranslation(self):
-        return self.getDict()[ED2.KEY_EXPLAIN_TRANSLATION]
-
-    def setComment(self, comment):
-        self.getDict()[ED2.KEY_COMMENT] = comment
-
-    def getComment(self):
-        return self.getDict()[ED2.KEY_COMMENT]
-
     def getSymbolMark(self):
         symbol = self.getDict()[ED2.KEY_SYMBOL]
         mark = ''
@@ -145,6 +118,10 @@ class ED2(DictObject):
         if keys is None or keys.count(ED2.KEY_SYMBOL) > 0:
             string = string + 'symbol: ' + self.getSymbol() + '\n'
             finishedKeys.append(ED2.KEY_SYMBOL)
+
+        if keys is None or keys.count(ED2.KEY_SYMBOL2) > 0:
+            string = string + 'symbol2: ' + str(self.getDict().get(ED2.KEY_SYMBOL2)) + '\n'
+            finishedKeys.append(ED2.KEY_SYMBOL2)
 
         if keys is None or keys.count(ED2.KEY_EDS) > 0:
             eds = self.getDict()[ED2.KEY_EDS]

@@ -122,7 +122,6 @@ def showEd2Single(ed2, showDict=False, key=None, keys=None):
     if ed2 is None:
         return
 
-    print(str(key) + ', ' + str(keys))
     string = ''
     string = string + '[' + ed2.getName() + ']\n'
     if key is not None:
