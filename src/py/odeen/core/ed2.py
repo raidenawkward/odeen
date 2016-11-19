@@ -40,6 +40,16 @@ class ED2(DictObject):
         KEY_ED2_EXPLAIN_LIST
     ]
 
+    SYMBOL_BIT_NAME = [
+        '初',
+        '二',
+        '三',
+        '四',
+        '五',
+        '上',
+    ]
+
+
     def __init__(self, dictionary=None, id=None, name=None, eds=None, symbol=None, explain=None,
     explainTranslation=None, comment=None):
         super().__init__(dictionary)
@@ -89,16 +99,73 @@ class ED2(DictObject):
     def getSymbol(self):
         return self.getDict()[ED2.KEY_SYMBOL]
 
-    def getSymbolMark(self):
+    def getSymbolProposalOrNot(self, position=-1):
         symbol = self.getDict()[ED2.KEY_SYMBOL]
+        symbolProposalOrNotList = []
+
+        for i in range(0, len(symbol)):
+            if i % 2 == 0:
+                if str(symbol[i]) == '0':
+                    symbolProposalOrNotList.append(True)
+                else:
+                    symbolProposalOrNotList.append(False)
+            else:
+                if str(symbol[i]) == '1':
+                    symbolProposalOrNotList.append(True)
+                else:
+                    symbolProposalOrNotList.append(False)
+
+        if position >= 0 and position < len(symbol):
+            return symbolProposalOrNotList[position]
+
+        return symbolProposalOrNotList
+
+    def getSymbolMark(self, position=-1, getlist=False):
+        symbol = self.getDict()[ED2.KEY_SYMBOL]
+
+        symbolMarkList = []
+        for i in range(0, len(symbol)):
+            m = '- -' if symbol[i] == '1' else '---'
+            symbolMarkList.append(m)
+
+        if getlist is True:
+            return symbolMarkList
+
+        if position >= 0 and position < len(symbol):
+            return symbolMarkList[position]
+
         mark = ''
-        mark = mark + ('- -' if symbol[5] == '1' else '---') + '\n'
-        mark = mark + ('- -' if symbol[4] == '1' else '---') + '\n'
-        mark = mark + ('- -' if symbol[3] == '1' else '---') + '\n'
-        mark = mark + ('- -' if symbol[2] == '1' else '---') + '\n'
-        mark = mark + ('- -' if symbol[1] == '1' else '---') + '\n'
-        mark = mark + ('- -' if symbol[0] == '1' else '---')
+
+        for i in range(len(symbolMarkList) - 1, -1, -1):
+            mark = mark + ('- -' if symbol[i] == '1' else '---') + '\n'
+
         return mark
+
+    def getSymbolName(self, position):
+        pos = None
+        name = None
+        res = None
+
+        symbolPosName = ED2.SYMBOL_BIT_NAME[position]
+        if symbolPosName is None:
+            return res
+
+        symbolBit = str(self.getSymbol())[position]
+        if symbolBit is None:
+            return res
+
+        symbolBitName = None
+        if symbolBit == '0':
+            symbolBitName = '九'
+        else:
+            symbolBitName = '六'
+
+        if position == 0 or position == len(self.getSymbol()) - 1:
+            res = symbolPosName + symbolBitName
+        else:
+            res = symbolBitName + symbolPosName
+
+        return res
 
     def toFormattedString(self, keys=None, showSymbolMark=True):
         string = ''
@@ -131,24 +198,55 @@ class ED2(DictObject):
         if keys is None or keys.count(ED2.KEY_ED2_EXPLAIN_LIST) > 0:
             explainList = self.getDict()[ED2.KEY_ED2_EXPLAIN_LIST]
             if explainList is not None:
-                string = string + 'explain list:\n\n'
+                string = string + '\n** 卦辞解释 **:\n\n'
 
                 for explainDict in explainList:
-                    string = string + 'explain ' + str(explainList.index(explainDict)) + ':\n'
+                    string = string + '[卦辞 ' + str(explainList.index(explainDict)) + ']\n'
+                    explainFinishedKeys = []
+
+                    string = string + '[原文]  ' + str(explainDict.get(ED2.KEY_ED2_EXPLAIN_ORIGIN)) + '\n\n'
+                    explainFinishedKeys.append(ED2.KEY_ED2_EXPLAIN_ORIGIN)
+                    string = string + '[译文]  ' + str(explainDict.get(ED2.KEY_ED2_EXPLAIN_TRANSLATE)) + '\n\n'
+                    explainFinishedKeys.append(ED2.KEY_ED2_EXPLAIN_TRANSLATE)
+                    string = string + '[注释]  ' + str(explainDict.get(ED2.KEY_ED2_EXPLAIN_ORIGIN)) + '\n\n'
+                    explainFinishedKeys.append(ED2.KEY_ED2_EXPLAIN_TRANSLATE)
+
                     for key in explainDict.keys():
-                        string = string + '' + key + ': ' + str(explainDict.get(key)) + '\n'
+                        if explainFinishedKeys.count(key) == 0:
+                            string = string + '' + key + ': ' + str(explainDict.get(key)) + '\n'
 
             finishedKeys.append(ED2.KEY_ED2_EXPLAIN_LIST)
 
         if keys is None or keys.count(ED2.KEY_SYMBOL_LIST) > 0:
             symbolList = self.getDict().get(ED2.KEY_SYMBOL_LIST)
             if symbolList is not None:
-                string = string + '\nsymbol list:\n\n'
+                string = string + '\n** 爻位 **\n\n'
 
                 for symbolDict in symbolList:
-                    string = string + '' + str(symbolList.index(symbolDict)) + ':\n'
+                    pos = symbolList.index(symbolDict)
+                    posName = self.getSymbolName(pos)
+                    string = string + '[' + str(posName) + ']\n'
+
+                    symbolFinishedKeys = []
+
+                    symbolIndex = symbolList.index(symbolDict)
+                    string = string + '' + str(self.getSymbolMark(position=symbolIndex)) + '\n'
+                    if self.getSymbolProposalOrNot(symbolIndex):
+                        string = string + '当位\n\n'
+                    else:
+                        string = string + '不当位\n\n'
+                    string = string + '[易经原文]  ' + str(symbolDict.get(ED2.KEY_ED2_SYMBOL_ORIGIN)) + '\n\n'
+                    symbolFinishedKeys.append(ED2.KEY_ED2_SYMBOL_ORIGIN)
+                    string = string + '[易经译文]  ' + str(symbolDict.get(ED2.KEY_ED2_SYMBOL_TRANSLATE)) + '\n\n'
+                    symbolFinishedKeys.append(ED2.KEY_ED2_SYMBOL_TRANSLATE)
+                    string = string + '[分析]  ' + str(symbolDict.get(ED2.KEY_ED2_SYMBOL_ANALYSE)) + '\n\n'
+                    symbolFinishedKeys.append(ED2.KEY_ED2_SYMBOL_ANALYSE)
+                    string = string + '[注释]  ' + str(symbolDict.get(ED2.KEY_ED2_SYMBOL_COMMENT)) + '\n\n'
+                    symbolFinishedKeys.append(ED2.KEY_ED2_SYMBOL_COMMENT)
+
                     for key in symbolDict.keys():
-                        string = string + '' + key + ': ' + str(symbolDict.get(key)) + '\n'
+                        if symbolFinishedKeys.count(key) == 0:
+                            string = string + '' + key + ': ' + str(symbolDict.get(key)) + '\n'
             finishedKeys.append(ED2.KEY_SYMBOL_LIST)
 
         # the rest of keys
