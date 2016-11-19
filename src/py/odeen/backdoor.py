@@ -132,6 +132,23 @@ def addEd2SingleSymbolList():
     print('succeed list: ' + str(okList))
     print('failed list: ' + str(failList))
 
+def modifyEd2():
+    engine = EDEngine()
+    l = getMissedEd2Info()
+    for d in l:
+        name = d['name']
+        explainList = d.get('ed2_explain_list')
+        symbolList = d.get('single_symbol_list')
+
+        ed2 = engine.findEd2(name=name)
+        if ed2 is not None:
+            print('updating ' + name + ' explainList: ' + str(explainList is not None) + ', symbolList: ' + str(symbolList is not None))
+            if explainList is not None:
+                ed2.getDict()[ED2.KEY_ED2_EXPLAIN_LIST] = explainList
+            if symbolList is not None:
+                ed2.getDict()[ED2.KEY_SYMBOL_LIST] = symbolList
+
+            engine.saveEd2(ed2)
 
 
 if __name__ == '__main__':
@@ -143,4 +160,5 @@ if __name__ == '__main__':
     #_updateEdGoodOrIll()
     #_addEdNumber2()
     #addEd2SingleSymbolList()
-    print(str(ED.__dict__))
+    #print(str(ED.__dict__))
+    #modifyEd2()

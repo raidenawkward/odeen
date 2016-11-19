@@ -172,6 +172,17 @@ class ED2(DictObject):
                     string = string + '' + str(symbolList.index(symbolDict)) + ':\n'
                     for key in symbolDict.keys():
                         string = string + '' + key + ': ' + str(symbolDict.get(key)) + '\n'
+            finishedKeys.append(ED2.KEY_SYMBOL_LIST)
+
+        # the rest of keys
+        if  keys is not None:
+            for key in keys:
+                if finishedKeys.count(key) == 0:
+                    string = string + '' + key + ': ' + str(self.getDict().get(key)) + '\n'
+        else:
+            for key in ED2.KEY_LIST:
+                if finishedKeys.count(key) == 0:
+                    string = string + '' + key + ': ' + str(self.getDict().get(key)) + '\n'
 
         return string
 
